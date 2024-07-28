@@ -1,0 +1,76 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.delete-service-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+}
+
+.delete-service-container h2 {
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 24px; /* Увеличен размер шрифта заголовка */
+}
+
+.delete-service-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Отступы между элементами формы */
+}
+
+.select-label {
+  font-size: 18px; /* Размер шрифта для метки */
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.service-list {
+  height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fafafa;
+}
+
+.service-item {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.service-label {
+  margin-left: 8px;
+  font-size: 16px; /* Размер шрифта для метки услуги */
+}
+
+.no-services {
+  color: #777;
+  font-size: 16px;
+}
+
+.delete-button {
+  background-color: rgba(0, 123, 255, 0.8); /* Синий цвет с непрозрачностью */
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 18px; /* Размер шрифта кнопки */
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: rgba(0, 91, 179, 0.8); /* Темнее синий при наведении */
+}

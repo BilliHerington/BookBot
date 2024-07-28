@@ -1,0 +1,55 @@
+.redact-service-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px; /* Установлено максимальное значение ширины */
+  width: 100%;
+  text-align: center;
+}
+
+.redact-service-container h2 {
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 24px; /* Размер шрифта заголовка такой же */
+}
+
+.redact-service-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Отступы между элементами формы */
+  align-items: center;
+}
+
+.redact-service-form label {
+  font-size: 20px; /* Размер шрифта для меток такой же */
+  color: #555;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.redact-service-form input,
+.redact-service-form textarea,
+.redact-service-form select {
+  width: 100%;
+  padding: 10px; /* Внутренний отступ такой же */
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-top: 5px;
+  font-size: 18px; /* Размер шрифта для ввода данных такой же */
+}
+
+.redact-service-form button {
+  background-color: rgba(0, 123, 255, 0.8); /* Цвет фона кнопки такой же */
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px; /* Внутренние отступы такие же */
+  border-radius: 5px;
+  font-size: 20px; /* Размер шрифта кнопки такой же */
+  cursor: pointer;
+}
+
+.redact-service-form button:hover {
+  background-color: rgba(0, 91, 179, 0.8); /* Цвет фона при наведении такой же */
+}

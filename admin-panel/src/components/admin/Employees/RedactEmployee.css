@@ -1,0 +1,54 @@
+.redact-employee-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px; /* Ширина такая же, как у редактирования расписания */
+  width: 100%;
+  text-align: center;
+}
+
+.redact-employee-container h3 {
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 24px; /* Размер шрифта заголовка такой же */
+}
+
+.redact-employee-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.redact-employee-container label {
+  font-size: 20px; /* Размер шрифта для меток такой же */
+  color: #555;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.redact-employee-container select,
+.redact-employee-container input {
+  width: 100%;
+  padding: 10px; /* Внутренний отступ такой же */
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 18px; /* Размер шрифта такой же */
+}
+
+.redact-employee-container button {
+  background-color: rgba(0, 123, 255, 0.8); /* Цвет фона кнопки такой же */
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px; /* Внутренние отступы такие же */
+  border-radius: 5px;
+  font-size: 20px; /* Размер шрифта такой же */
+  cursor: pointer;
+}
+
+.redact-employee-container button:hover {
+  background-color: rgba(0, 91, 179, 0.8); /* Цвет фона при наведении такой же */
+}
