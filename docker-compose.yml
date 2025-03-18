@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DB=${DBNAME}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5  
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/dump.sql:/docker-entrypoint-initdb.d/dump.sql   # Дамп БД
+
+  backend:
+    build: .
+    container_name: go_backend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=${LISTENING_PORT}
+    ports:
+      - "${LISTENING_PORT:-8080}:${LISTENING_PORT:-8080}"
+    command: sh -c "sleep 10 && /app/main"
+
+  frontend:
+    build: ./client
+    container_name: my_react
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
