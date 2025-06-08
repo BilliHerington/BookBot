@@ -1,7 +1,7 @@
-# 📅 BookBot - Telegram Appointment Bot
-## 📝 Description
+#  BookBot - Telegram Appointment Bot
+## Description
   BookBot is a Telegram bot with a web-based admin panel that facilitates appointment scheduling and service management. It dynamically adjusts based on database content, ensuring flexibility and ease of use. The admin panel provides an intuitive interface for managing services, employees, and schedules.
-## 🛠️ Technologies Used
+## Technologies Used
  - Backend: **Go, Gin**
 
  - Frontend: **React, React Router, JS, HTML+CSS**
@@ -12,22 +12,22 @@
 
 ## 🚀 Features
 
- - 📩 Telegram bot for appointment scheduling, dynamically adapting to database content
+ -  Telegram bot for appointment scheduling, dynamically adapting to database content
 
- - 🖥️ Simple yet functional web-based admin panel for managing services and appointments
+ -  Simple yet functional web-based admin panel for managing services and appointments
 
- - 🔧 One-click deployment with a fully containerized Docker setup
+ -  One-click deployment with a fully containerized Docker setup
 
- - ⚡ **Pre-configured environment variables** for instant testing and deployment
+ -  **Pre-configured environment variables** for instant testing and deployment
 
-## 🏗️ Installation and Setup
+## Installation and Setup
 🐳 Docker Setup
 
 1. Build and run the project using Docker Compose:
    ```sh
    docker-compose up --build -d
    
-## ⚙️ Configuration
+## Configuration
 Set up environment variables in a `.env` file:
 ```sh
 BOTAPI=your_telegram_bot_token
