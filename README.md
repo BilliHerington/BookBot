@@ -46,4 +46,4 @@ BOTAPI=your_telegram_bot_token
 
 **Author: Denis Basov**
 
-**GitHub: https://github.com/BilliHerington**
+**GitHub: https://github.com/denisbasov**
