@@ -77,7 +77,6 @@ func HandleDeleteAppointmentMessage(bot *tgbotapi.BotAPI, message *tgbotapi.Mess
 	msg.ReplyMarkup = tgbotapi.NewRemoveKeyboard(true)
 	bot.Send(msg)
 	context.IsAppontmentID = true
-
 }
 func IsAppointmentID(message string, context *UserContext, db *sql.DB) bool {
 	if context.IsAppontmentID {

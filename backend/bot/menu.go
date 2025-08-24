@@ -7,8 +7,16 @@ import (
 	"sync"
 )
 
-var userContexts = make(map[int64]*UserContext)
-var mu sync.Mutex // для синхронизации доступа к userContexts
+var userContexts sync.Map
+
+// получение контекста конкретного пользователя
+func getUserContext(chatID int64) *UserContext {
+	contextInterface, _ := userContexts.LoadOrStore(chatID, &UserContext{})
+	context := contextInterface.(*UserContext)
+	return context
+}
+
+//var mu sync.Mutex // для синхронизации доступа к userContexts
 
 func IsMainMenu(message string, context *UserContext, db *sql.DB) bool {
 	if message == "Главное меню" {
@@ -23,23 +31,30 @@ func HandleMainMenu(bot *tgbotapi.BotAPI, message *tgbotapi.Message, context *Us
 	bot.Send(msg)
 }
 
-func HandleTextmessage(bot *tgbotapi.BotAPI, message *tgbotapi.Message, db *sql.DB) {
-	mu.Lock()
-	context, exists := userContexts[message.Chat.ID]
-	if !exists {
-		context = &UserContext{}
-		userContexts[message.Chat.ID] = context
-	}
-	mu.Unlock()
+func HandleTextMessage(bot *tgbotapi.BotAPI, message *tgbotapi.Message, db *sql.DB) {
+	context := getUserContext(message.Chat.ID)
+
 	//logs.DebugLogger.Println("test user ctx:", userContexts[message.Chat.ID])
 
+	var matchedRoute *Route
 	logs.DebugLogger.Printf("Received message: %s", message.Text)
 	for _, route := range Routes {
-		if route.Condition(message.Text, context, db) {
-			route.Handler(bot, message, context, db)
-			return
+		// Для проверки условия можно передавать копию контекста или только поля, которые не требуют блокировки
+		context.mu.RLock()
+		conditionMatched := route.Condition(message.Text, context, db)
+		context.mu.RUnlock()
+		if conditionMatched {
+			matchedRoute = &route
+			break
 		}
 	}
+	if matchedRoute != nil {
+		context.mu.Lock()
+		matchedRoute.Handler(bot, message, context, db)
+		context.mu.Unlock()
+		return
+	}
+
 	logs.DebugLogger.Printf("Message not found in routes: %s", message.Text)
 	handleUnknownCommand(bot, message)
 }
