@@ -4,7 +4,9 @@ import (
 	"awesomeProject/logs"
 	_ "awesomeProject/logs"
 	"database/sql"
+	"github.com/gin-gonic/gin"
 	"github.com/go-telegram-bot-api/telegram-bot-api"
+	"os"
 	"sync"
 )
 
@@ -27,24 +29,26 @@ func RunBot(bot *tgbotapi.BotAPI, db *sql.DB) {
 			HandleUpdates(bot, &update, db)
 		}
 	}()
-	// создаём отдельный тестовый роутер для /fakeUpdate
-	//testRouter := gin.Default()
-	//testRouter.POST("/fakeUpdate", func(c *gin.Context) {
-	//	var update tgbotapi.Update
-	//	if err := c.BindJSON(&update); err != nil {
-	//		c.JSON(400, gin.H{"error": err.Error()})
-	//		return
-	//	}
-	//	//fmt.Println("db contain:", db)
-	//	// передаём update в реальный BotAPI
-	//	HandleUpdates(bot, &update, db)
-	//	c.JSON(200, gin.H{"status": "ok"})
-	//})
-	//
-	//// запускаем тестовый сервер на другом порту (например 8081)
-	//go testRouter.Run(":8080")
+	if os.Getenv("DEBUG") == "true" {
+		// создаём отдельный тестовый роутер для /fakeUpdate
+		testRouter := gin.Default()
+		testRouter.POST("/fakeUpdate", func(c *gin.Context) {
+			var update tgbotapi.Update
+			if err := c.BindJSON(&update); err != nil {
+				c.JSON(400, gin.H{"error": err.Error()})
+				return
+			}
+			//fmt.Println("db contain:", db)
+			// передаём update в реальный BotAPI
+			HandleUpdates(bot, &update, db)
+			c.JSON(200, gin.H{"status": "ok"})
+		})
 
-	logs.InfoLogger.Printf("Telegram bot initialized and fakeUpdate test endpoint ready on :8080")
+		// запускаем тестовый сервер на другом порту (например 8081)
+		go testRouter.Run(":8081")
+	}
+
+	logs.InfoLogger.Printf("Telegram bot initialized and fakeUpdate test endpoint ready on :8081")
 }
 
 func HandleUpdates(bot *tgbotapi.BotAPI, update *tgbotapi.Update, db *sql.DB) {

@@ -73,7 +73,7 @@ function sendUpdate(text) {
         },
     });
 
-    http.post("http://go_backend:8080/fakeUpdate", payload, {
+    http.post("http://go_backend:8081/fakeUpdate", payload, {
         headers: { "Content-Type": "application/json" },
     });
 }

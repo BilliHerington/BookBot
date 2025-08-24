@@ -18,7 +18,7 @@ export default function () {
         }
     });
 
-    const res = http.post("http://go_backend:8080/fakeUpdate", payload, {
+    const res = http.post("http://go_backend:8081/fakeUpdate", payload, {
         headers: { "Content-Type": "application/json" },
     });
 

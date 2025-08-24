@@ -20,7 +20,7 @@ SELECT * FROM services ORDER BY service_id`
 		serviceData := database.AllServicesData{}
 		err = rows.Scan(&serviceData.ServiceID, &serviceData.Name, &serviceData.Duration, &serviceData.DefaultPrice, &serviceData.ProPrice, &serviceData.Description)
 		if err != nil {
-			logs.ErrorLogger.Println("Failed to scan row: %v", err)
+			logs.ErrorLogger.Println("Failed to scan row: ", err)
 			return nil, err
 		}
 		serviceDataList = append(serviceDataList, serviceData)

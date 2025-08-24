@@ -31,7 +31,7 @@ func AddEmployee(db *sql.DB, employeeName string, level string, contactnumber st
 	query := `INSERT INTO employees (name, level , contact_number) VALUES ($1, $2, $3)`
 	_, err := db.Exec(query, employeeName, level, contactnumber)
 	if err != nil {
-		logs.ErrorLogger.Println("Failed to execute query: %v", err)
+		logs.ErrorLogger.Printf("Failed to execute query: %v", err)
 		return err
 	}
 	return nil

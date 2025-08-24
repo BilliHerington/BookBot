@@ -21,7 +21,7 @@ FROM appointments ORDER BY appointment_id`
 		userData := database.AllAppointmentsData{}
 		err = rows.Scan(&userData.AppointmentID, &userData.UserName, &userData.UserContact, &userData.AppointmentDate, &userData.TimeStart, &userData.TimeEnd, &userData.ServiceID, &userData.EmployeeID, &userData.Status)
 		if err != nil {
-			logs.ErrorLogger.Println("Failed to scan row: %v", err)
+			logs.ErrorLogger.Printf("Failed to scan row: %v", err)
 			return nil, err
 		}
 		userDataList = append(userDataList, userData)

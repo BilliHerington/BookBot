@@ -94,26 +94,6 @@ func runServer(db *sql.DB) error {
 		MaxAge:           12 * time.Hour,
 	}))
 
-	router.POST("/fakeUpdate", func(c *gin.Context) {
-		var update tgbotapi.Update
-		//var bot_ tgbotapi.BotAPI
-		if err := c.BindJSON(&update); err != nil {
-			c.JSON(400, gin.H{"error": err.Error()})
-			return
-		}
-
-		// обработка апдейта как будто от Telegram
-		go func() {
-
-			//bot.HandleUpdates(bot_, &update, db) //runTelegramBot(db)
-			//if err != nil {
-			//	logs.ErrorLogger.Printf("telegram error: %s", err)
-			//}
-		}()
-
-		c.JSON(200, gin.H{"status": "ok"})
-	})
-
 	router.GET("/ping", func(c *gin.Context) { c.JSON(200, gin.H{"message": "pong"}) })
 	router.POST("/login", WI.Login)
 
@@ -158,37 +138,11 @@ func runTelegramBot(db *sql.DB) error {
 		return err
 	}
 	// отключаем вебхуки
+
 	_, err = botAPI.RemoveWebhook()
 	if err != nil {
 		return err
 	}
-
-	//// запускаем goroutine с реальной обработкой апдейтов
-	//go func() {
-	//	u := tgbotapi.NewUpdate(0)
-	//	u.Timeout = 60
-	//	updates, _ := botAPI.GetUpdatesChan(u)
-	//	for update := range updates {
-	//		bot.HandleUpdates(botAPI, &update, db)
-	//	}
-	//}()
-	//
-	//// создаём отдельный тестовый роутер для /fakeUpdate
-	//testRouter := gin.Default()
-	//testRouter.POST("/fakeUpdate", func(c *gin.Context) {
-	//	var update tgbotapi.Update
-	//	if err := c.BindJSON(&update); err != nil {
-	//		c.JSON(400, gin.H{"error": err.Error()})
-	//		return
-	//	}
-	//
-	//	// передаём update в реальный BotAPI
-	//	go bot.HandleUpdates(botAPI, &update, db)
-	//	c.JSON(200, gin.H{"status": "ok"})
-	//})
-	//
-	//// запускаем тестовый сервер на другом порту (например 8081)
-	//go testRouter.Run(":8081")
 
 	botAPI.Debug = false
 	logs.InfoLogger.Printf("Authorized on Telegram account: %s", botAPI.Self.UserName)
